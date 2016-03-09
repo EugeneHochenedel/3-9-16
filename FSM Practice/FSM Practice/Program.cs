@@ -11,13 +11,18 @@ namespace FSM_Practice
 	//Might only need to be made once, then just reused
 	class FiniteStateMachine
 	{
-		class Transition
+		public class Transition
 		{
-			public Transition(Enum from, Enum to)
+			public Enum Current;
+			public Enum Desired;
+			public Transition(Enum first, Enum second)
 			{
-				
+				Current = first;
+				Desired = second;
 			}
+		//	public Enum from { get; set; }
 		}
+		
 		Enum _currentState;
 		public FiniteStateMachine(Enum initial)
 		{
@@ -47,17 +52,17 @@ namespace FSM_Practice
 				Console.WriteLine("Can't do that.");
 				return false;
 			}
-			
+
 		}
 
 		public void info()
 		{
 			Console.WriteLine("Finite State Machine is comprised of...");
-			int iCount = 0;
+			//int iCount = 0;
 			foreach (Enum s in _States)
 			{
-				Console.WriteLine("State " + iCount.ToString() + ": " + s.ToString());
-				iCount++;
+				Console.WriteLine("State " + s.GetHashCode()/* iCount.ToString()*/ + ": " + s.ToString());
+				//iCount++;
 			}
 
 			Console.WriteLine("Current State is: " + _currentState.ToString());
@@ -71,11 +76,23 @@ namespace FSM_Practice
 		public bool AddTransition(Enum from, Enum to)
 		{
 			Transition t = new Transition(from, to);
-			if(TransitionTable[from].Contains(t))
+			
+			List<Transition> Testing = new List<Transition>(4);
+			for (int iCount = 0; Testing.Capacity <= 4; iCount++)
 			{
-
+				Testing.Insert(0, t);
 			}
-			return true;
+			if (TransitionTable[from].Contains(t))
+			{
+				
+				Console.WriteLine("The active state is... " + from.ToString());
+				return true;
+			}
+			else// if(TransitionTable[from].Contains(t) == TransitionTable[to].Contains(t))
+			{
+				Console.WriteLine("You can't transition like that!");
+				return false;
+			}
 		}
 
 		Dictionary<Enum, List<Transition>> TransitionTable;
@@ -105,6 +122,7 @@ namespace FSM_Practice
 			fsm.AddState(PlayerStates.walk);
 			fsm.AddState(PlayerStates.run);
 			fsm.AddState(PlayerStates.init);
+			//fsm.AddTransition(PlayerStates.init, PlayerStates.idle);
 			//fsm.AddTransition()
 			//need to know current state
 			//Pass on the constructor
