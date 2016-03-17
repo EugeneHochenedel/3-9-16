@@ -38,22 +38,22 @@ namespace FSM_Practice
 		}
 
 		/// <summary>
-		/// 
+		/// Checks that the _States list doesn't contain a specified Enum.
+		/// If it doesn't, it then the Enum is added to it.
+		/// From there the Enums are also added to the dictionary _TransitionTable with a new List.
+		/// If the _States list already contains the specified Enum it then outputs a notification and does not add the Enum again.
 		/// </summary>
 		/// <param name="state"></param>
-		/// <returns></returns>
-		public bool AddState(Enum state)
+		public void AddState(Enum state)
 		{
 			if (!_States.Contains(state))
 			{
 				_States.Add(state);
 				_TransitionTable.Add(state, new List<Transition>());
-				return true;
 			}
 			else
 			{
 				Console.WriteLine("Can't do that.");
-				return false;
 			}
 
 		}
@@ -69,14 +69,14 @@ namespace FSM_Practice
 				Console.WriteLine("State " + s.GetHashCode() + ": " + s.ToString());
 			}
 
-			Console.WriteLine("The current state is: " + _currentState.ToString());
+			Console.WriteLine("The current state is: " + _currentState.ToString() + "\n");
 		}
-
+		
 		/// <summary>
-		/// 
+		/// Adds transitions to the Dictionary
 		/// </summary>
-		/// <param name="transition">Must match the state->state format</param>
-		/// <returns>False if this is not a valid transition</returns>
+		/// <param name="from"></param>
+		/// <param name="to"></param>
 		public void AddTransition(Enum from, Enum to)
 		{
 			if (_TransitionTable.ContainsKey(from))
@@ -93,24 +93,28 @@ namespace FSM_Practice
 		{
 			Console.WriteLine("Change from " + _currentState.ToString() + " to " + change);
 
-			if (change.GetHashCode() > _currentState.GetHashCode() || change.GetHashCode() < _currentState.GetHashCode() && change.GetHashCode() != 0)
+			if (change.GetHashCode() > _currentState.GetHashCode() ||
+				change.GetHashCode() < _currentState.GetHashCode() && !change.GetHashCode().Equals(0))
 			{
 				foreach (Transition t in _TransitionTable[_currentState])
 				{
 					if (t.Desired.Equals(change))
 					{
-						Console.WriteLine("Transitioning from: " + _currentState);
 						_currentState = change;
-						Console.WriteLine("To: " + _currentState);
 						Console.WriteLine("Current State: " + _currentState + "\n");
+					}
+					else if (t.Present.Equals(_currentState))
+					{
+						Console.WriteLine("That transition is invalid! \nCurrent State: " + _currentState + "\n");
 					}
 				}
 			}
-			else if(change.GetHashCode() == 0 && _currentState.GetHashCode() > 0 || 
-					change.GetHashCode() == _currentState.GetHashCode())
+			else if (change.GetHashCode().Equals(0) && !_currentState.GetHashCode().Equals(0) ||
+					change.GetHashCode().Equals(_currentState.GetHashCode()))
 			{
-				Console.WriteLine("That transition is invalid! \nCurrent State:" + _currentState + "\n");	
+				Console.WriteLine("That transition is invalid! \nCurrent State: " + _currentState + "\n");
 			}
+
 		}
 	}
 }

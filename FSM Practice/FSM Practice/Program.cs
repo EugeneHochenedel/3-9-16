@@ -10,44 +10,41 @@ namespace FSM_Practice
 	{
 		enum PlayerStates
 		{
-			init,
-			idle,
-			walk,
-			run,
+			INIT,
+			IDLE,
+			WALK,
+			RUN
 		}
 		static void Main(string[] args)
 		{
-			FiniteStateMachine fsm = new FiniteStateMachine(PlayerStates.init);
-			//init -> idle
-			//idle -> walk
-			//walk -> run
-			//run -> walk
-			//walk -> idle
-			fsm.AddState(PlayerStates.init);
-			fsm.AddState(PlayerStates.idle);
-			fsm.AddState(PlayerStates.walk);
-			fsm.AddState(PlayerStates.run);
-			//fsm.AddState(PlayerStates.init);
-			fsm.AddTransition(PlayerStates.init, PlayerStates.idle);
-			fsm.AddTransition(PlayerStates.idle, PlayerStates.walk);
-			fsm.AddTransition(PlayerStates.walk, PlayerStates.run);
-			fsm.AddTransition(PlayerStates.run, PlayerStates.walk);
-			fsm.AddTransition(PlayerStates.walk, PlayerStates.idle);
-			//fsm.AddTransition(PlayerStates.init, PlayerStates.idle);
+			FiniteStateMachine fsm = new FiniteStateMachine(PlayerStates.INIT);
+			//INIT -> IDLE
+			//IDLE -> WALK
+			//WALK -> RUN
+			//RUN -> WALK
+			//WALK -> IDLE
+			fsm.AddState(PlayerStates.INIT);
+			fsm.AddState(PlayerStates.IDLE);
+			fsm.AddState(PlayerStates.WALK);
+			fsm.AddState(PlayerStates.RUN);
+
+			fsm.AddTransition(PlayerStates.INIT, PlayerStates.IDLE);
+			fsm.AddTransition(PlayerStates.IDLE, PlayerStates.WALK);
+			fsm.AddTransition(PlayerStates.WALK, PlayerStates.RUN);
+			fsm.AddTransition(PlayerStates.RUN, PlayerStates.WALK);
+			fsm.AddTransition(PlayerStates.WALK, PlayerStates.IDLE);
 			//fsm.AddTransition()
 			//need to know current state
 			//Pass on the constructor
 			//fsm.info();
-			fsm.ChangeState(PlayerStates.idle);
-			fsm.ChangeState(PlayerStates.init);
-
-			//fsm.info();
-
-			fsm.ChangeState(PlayerStates.walk);
-			//fsm.info();
-			fsm.ChangeState(PlayerStates.idle);
-			fsm.ChangeState(PlayerStates.run);
+			fsm.ChangeState(PlayerStates.IDLE);
+			fsm.ChangeState(PlayerStates.INIT);
+			fsm.ChangeState(PlayerStates.WALK);
+			fsm.ChangeState(PlayerStates.RUN);
 			
+			fsm.ChangeState(PlayerStates.IDLE);
+			fsm.ChangeState(PlayerStates.RUN);
+			fsm.ChangeState(PlayerStates.WALK);
 			Console.ReadLine();
 		}
 	}
