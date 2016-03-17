@@ -27,7 +27,7 @@ namespace FSM_Practice
 		private List<Enum> _States;
 
 		/// <summary>
-		/// 
+		/// Constructs the FSM 
 		/// </summary>
 		/// <param name="initial"></param>
 		public FiniteStateMachine(Enum initial)
@@ -59,7 +59,7 @@ namespace FSM_Practice
 		}
 
 		/// <summary>
-		/// 
+		/// Simply outputs the a list of states specified by the program.
 		/// </summary>
 		public void info()
 		{
@@ -73,7 +73,7 @@ namespace FSM_Practice
 		}
 		
 		/// <summary>
-		/// Adds transitions to the Dictionary
+		/// Adds transitions to the Dictionary.
 		/// </summary>
 		/// <param name="from"></param>
 		/// <param name="to"></param>
@@ -86,7 +86,9 @@ namespace FSM_Practice
 		}
 
 		/// <summary>
-		/// 
+		/// Allows for transitions between states based on deffinitions in the Dictionary.
+		/// Checks if the transition is valid.
+		/// Outputs an error message if the transition is invalid.
 		/// </summary>
 		/// <param name="change"></param>
 		public void ChangeState(Enum change)
